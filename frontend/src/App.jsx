@@ -34,10 +34,6 @@ function App() {
           <Route index element={<UserDashboard />} />
 
           <Route path="task/view" element={<UserTask formtype="view" />} />
-
-          {/* <Route path="task/update/:id" element={<Task formtype="update" />} />
-
-          <Route path="task/delete/:id" element={<Task formtype="delete" />} /> */}
         </Route>
 
         {/* Admin routes */}

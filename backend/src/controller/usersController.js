@@ -22,7 +22,7 @@ export const allUsers = async (req, res, next) => {
 
 export const userDashboard = async (req, res, next) => {
     try {
-        const userId = req.user.id;
+        const userId = req.user.user_id;
 
         const { status, priority } = req.query;
 
@@ -39,6 +39,8 @@ export const userDashboard = async (req, res, next) => {
         if (priority) {
             where.priority = priority;
         }
+
+        console.log(where)
 
         const [
             tasks,
@@ -112,6 +114,8 @@ export const userDashboard = async (req, res, next) => {
             priority: task.priority,
             status: task.status,
         }));
+
+        console.log("formattedTasks",formattedTasks)
 
         return res.status(200).json({
             success: true,

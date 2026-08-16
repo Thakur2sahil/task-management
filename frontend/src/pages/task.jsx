@@ -27,7 +27,7 @@ export default function Task({ formtype = "view" }) {
         },
       );
 
-      setTask(response.task);
+      setTask(response.tasks);
     } catch (error) {
       console.error("Failed to fetch task:", error);
     } finally {
@@ -50,12 +50,12 @@ export default function Task({ formtype = "view" }) {
         {
           method: "PUT",
           body: {
-            title: task.title,
-            description: task.description,
-            status: task.status,
-            priority: task.priority,
-            assignedTo: task.assignedTo,
-            dueDate: task.dueDate,
+            title: task?.title,
+            description: task?.description,
+            status: task?.status,
+            priority: task?.priority,
+            assignedTo: task?.assignedTo,
+            dueDate: task?.dueDate,
           },
         },
       );
@@ -112,7 +112,7 @@ export default function Task({ formtype = "view" }) {
   if (loading) {
     return (
       <div className="p-6 text-center">
-        <p className="text-gray-500">Loading task...</p>
+        <p className="text-gray-500">Loading task?...</p>
       </div>
     );
   }
@@ -151,10 +151,10 @@ export default function Task({ formtype = "view" }) {
           </p>
 
           <div className="mt-4 rounded-lg bg-gray-50 p-4">
-            <p className="font-semibold">{task.title}</p>
+            <p className="font-semibold">{task?.title}</p>
 
             <p className="mt-1 text-sm text-gray-500">
-              {task.description || "No description"}
+              {task?.description || "No description"}
             </p>
           </div>
 
@@ -196,7 +196,7 @@ export default function Task({ formtype = "view" }) {
 
               <input
                 type="text"
-                value={task.title || ""}
+                value={task?.title || ""}
                 onChange={(e) =>
                   setTask((prev) => ({
                     ...prev,
@@ -215,7 +215,7 @@ export default function Task({ formtype = "view" }) {
               </label>
 
               <textarea
-                value={task.description || ""}
+                value={task?.description || ""}
                 onChange={(e) =>
                   setTask((prev) => ({
                     ...prev,
@@ -232,7 +232,7 @@ export default function Task({ formtype = "view" }) {
               <label className="mb-2 block text-sm font-medium">Status</label>
 
               <select
-                value={task.status || "TODO"}
+                value={task?.status || "TODO"}
                 onChange={(e) =>
                   setTask((prev) => ({
                     ...prev,
@@ -241,7 +241,7 @@ export default function Task({ formtype = "view" }) {
                 }
                 className="w-full rounded-lg border border-gray-300 px-4 py-2"
               >
-                <option value="TODO">Todo</option>
+                <option value="PENDING">PENDING</option>
                 <option value="IN_PROGRESS">In Progress</option>
                 <option value="COMPLETED">Completed</option>
               </select>
@@ -252,7 +252,7 @@ export default function Task({ formtype = "view" }) {
               <label className="mb-2 block text-sm font-medium">Priority</label>
 
               <select
-                value={task.priority || "MEDIUM"}
+                value={task?.priority || "MEDIUM"}
                 onChange={(e) =>
                   setTask((prev) => ({
                     ...prev,
@@ -274,8 +274,8 @@ export default function Task({ formtype = "view" }) {
               <input
                 type="date"
                 value={
-                  task.dueDate
-                    ? new Date(task.dueDate).toISOString().split("T")[0]
+                  task?.dueDate
+                    ? new Date(task?.dueDate).toISOString().split("T")[0]
                     : ""
                 }
                 onChange={(e) =>
@@ -323,7 +323,7 @@ export default function Task({ formtype = "view" }) {
           <h1 className="text-2xl font-bold text-gray-900">Task Details</h1>
 
           <span className="rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700">
-            {task.status}
+            {task?.status}
           </span>
         </div>
 
@@ -331,14 +331,14 @@ export default function Task({ formtype = "view" }) {
           <div>
             <p className="text-sm text-gray-500">Title</p>
 
-            <p className="mt-1 text-lg font-semibold">{task.title}</p>
+            <p className="mt-1 text-lg font-semibold">{task?.title}</p>
           </div>
 
           <div>
             <p className="text-sm text-gray-500">Description</p>
 
             <p className="mt-1 text-gray-700">
-              {task.description || "No description"}
+              {task?.description || "No description"}
             </p>
           </div>
 
@@ -346,14 +346,14 @@ export default function Task({ formtype = "view" }) {
             <div>
               <p className="text-sm text-gray-500">Priority</p>
 
-              <p className="mt-1 font-medium">{task.priority}</p>
+              <p className="mt-1 font-medium">{task?.priority}</p>
             </div>
 
             <div>
               <p className="text-sm text-gray-500">Assigned To</p>
 
               <p className="mt-1 font-medium">
-                {task.assignedTo || "Unassigned"}
+                {task?.assignee_user_name || "Unassigned"}
               </p>
             </div>
           </div>
@@ -362,8 +362,8 @@ export default function Task({ formtype = "view" }) {
             <p className="text-sm text-gray-500">Due Date</p>
 
             <p className="mt-1 font-medium">
-              {task.dueDate
-                ? new Date(task.dueDate).toLocaleDateString()
+              {task?.dueDate
+                ? new Date(task?.dueDate).toLocaleDateString()
                 : "No due date"}
             </p>
           </div>

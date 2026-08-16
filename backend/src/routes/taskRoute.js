@@ -4,7 +4,7 @@ import * as taskController from "../controller/taskController.js"
 const taskRoute = Router();
 
 taskRoute.get("/", taskController.allTask);
-taskRoute.get("/user", taskController.taskUser);
+taskRoute.get("/my-task", taskController.taskUser);
 taskRoute.get("/:id", taskController.taskById);
 taskRoute.patch("/:id/status", taskController.status);
 

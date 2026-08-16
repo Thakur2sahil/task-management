@@ -15,12 +15,12 @@ export default function UserTask() {
       setLoading(true);
 
       const response = await FetchAPI(
-        `${import.meta.env.VITE_PUBLIC_API_URL}/api/task/user`,
+        `${import.meta.env.VITE_PUBLIC_API_URL}/api/task/my-task`,
         {
           method: "GET",
         },
       );
-
+console.log(response)
       setTasks(response.tasks || []);
     } catch (error) {
       console.error("Failed to fetch tasks:", error);

@@ -30,7 +30,7 @@ export const taskById = async (req, res, next) => {
     try {
         const { id } = req.params;
 
-        const task = await prisma.task.findUnique({
+        const tasks = await prisma.task.findUnique({
             where: {
                 id: Number(id),
             },
@@ -46,16 +46,21 @@ export const taskById = async (req, res, next) => {
             },
         });
 
-        if (!task) {
+        if (!tasks) {
             return res.status(404).json({
                 success: false,
                 message: "Task not found",
             });
         }
 
+        const formateTask = {
+            ...tasks,
+            assignee_user_name: tasks.assignee.user_name
+        }
+
         return res.status(200).json({
             success: true,
-            task,
+            tasks:formateTask,
         });
     } catch (error) {
         console.log(error)
@@ -65,7 +70,7 @@ export const taskById = async (req, res, next) => {
 
 export const taskUser = async (req, res, next) => {
     try {
-        const userId = req.user.id;
+        const userId = req.user.user_id;
 
         const tasks = await prisma.task.findMany({
             where: {
